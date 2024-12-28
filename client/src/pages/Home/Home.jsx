@@ -53,6 +53,7 @@ function NewHome() {
     <div>
       <Navbar onSearch={handleSearch} />
       <ImageSlider />
+      <div className='set12'>
       {Object.keys(plantsByCategory).map((category, index) => (
         <div key={index} className="category-section">
           <div className="category-header">
@@ -62,13 +63,13 @@ function NewHome() {
             </Link>
           </div>
           <div className="plant-cards-row">
-            {filterPlants(plantsByCategory[category]).slice(0, 5).map((plant, i) => (
+            {filterPlants(plantsByCategory[category]).slice(0, 4).map((plant, i) => (
               <PlantCard key={i} plant={plant} />
             ))}
           </div>
         </div>
       ))}
-      
+      </div>
       <Footer />
     </div>
   );

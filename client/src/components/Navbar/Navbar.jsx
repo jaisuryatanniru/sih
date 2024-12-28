@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaUserCircle, FaBookmark, FaSearch, FaGreaterThan, FaTimes } from 'react-icons/fa';
+import { FaUserCircle, FaBookmark, FaSearch, FaGreaterThan, FaTimes, FaCartArrowDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import axios from 'axios';
@@ -8,7 +8,7 @@ const Navbar = ({ onSearch }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [profileCardOpen, setProfileCardOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [user, setUser] = useState(null);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
@@ -53,6 +53,10 @@ const Navbar = ({ onSearch }) => {
 
   const goToBookmarkPage = () => {
     navigate('/bookmark');
+  };
+
+  const goToCartPage = () => {
+    navigate('/cart');
   };
 
   const handleSearchClick = () => {
@@ -114,6 +118,7 @@ const Navbar = ({ onSearch }) => {
           <ul className="navbar-links">
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About</a></li>
+            <li><a href="/orders">Your Orders</a></li>
             <li
               className="category-dropdown"
               onMouseEnter={toggleCategoryDropdown}
@@ -146,6 +151,7 @@ const Navbar = ({ onSearch }) => {
             />
           )}
           <FaBookmark className="navbar-icon" size={24} onClick={goToBookmarkPage} />
+          <FaCartArrowDown className="navbar-icon" size={24} onClick={goToCartPage}/>
           <FaUserCircle className="navbar-icon" size={36} onClick={toggleProfileCard} />
         </div>
       </nav>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Signin.css";
@@ -60,7 +60,7 @@ function Signin() {
                         Login
                     </button>
                 </form>
-                <p>Don't Have an Account?</p>
+                <p>Not Have an Account?</p>
                 <Link to="/" className="next-btn1">
                     Sign Up
                 </Link>

@@ -1,9 +1,10 @@
-import React from 'react';
+
+//import React from 'react';
 import './About.css';
 import Footer from '../../components/Footer/Footer';
 import { FaArrowLeft } from 'react-icons/fa';
 import {useNavigate } from 'react-router-dom';
-import Home from '../Home/Home';
+//import Home from '../Home/Home';
 
 const AboutUs = () => {
 
@@ -28,10 +29,8 @@ const AboutUs = () => {
 
             <div className="about-section">
                 <img 
-                    src="../WhatsApp Image 2024-08-23 at 16.16.57_6d1c493f.jpg" 
-                    alt="Our Team" 
-                    className="team-image" 
-                />
+            src="https://i.ibb.co/kXHbqkM/garden.webp" alt="garden" border="0" />
+                   
                 <div className="about-content">
                     <h2>Welcome to the Virtual AYUSH Herbal Garden</h2>
                     <p>

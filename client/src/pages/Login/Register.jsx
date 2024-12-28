@@ -18,7 +18,7 @@ function Register() {
                     navigate('/login');
                 } else {
                     alert(result.data);  
-                }
+                } 
             })
             .catch(err => {
                 console.log('Frontend Error:', err);

@@ -17,7 +17,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Plant' }]
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Plant' }],
+    cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Plant' }],
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Plant' }],
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

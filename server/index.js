@@ -16,10 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/sih', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URL, )
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.log(err));
 
@@ -68,7 +65,7 @@ app.post('/login', async (req, res) => {
         const user = await User.findOne({ email });
 
         if (user && await bcrypt.compare(password, user.password)) {
-            const token = jwt.sign({ id: user._id, name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.json({ token });
         } else {
             res.status(401).json("Incorrect username or password");
@@ -91,7 +88,6 @@ app.get('/api/userinfo', authenticateToken, async (req, res) => {
     }
 });
 
-// Update password
 // Update password
 app.post('/api/change-password', authenticateToken, async (req, res) => {
     try {
@@ -152,11 +148,10 @@ app.get('/api/plants/:id', async (req, res) => {
         }
         res.json(plant);
     } catch (err) {
-        console.error('Error:', err); // Debugging line
+        console.error('Error:', err);
         res.status(500).json({ message: err.message });
     }
 });
-
 
 // Add a plant to favorites
 app.post('/api/favorites/add', authenticateToken, async (req, res) => {
@@ -207,7 +202,6 @@ app.get('/api/favorites', authenticateToken, async (req, res) => {
     }
 });
 
-
 // Toggle favorite status
 app.post('/api/toggle-favorite', authenticateToken, async (req, res) => {
     try {
@@ -245,6 +239,95 @@ app.post('/api/check-favorite', authenticateToken, async (req, res) => {
         res.json({ isFavorite });
     } catch (err) {
         console.error('Error:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Add plant to cart
+app.post('/api/cart/add', authenticateToken, async (req, res) => {
+    try {
+        const { plantId } = req.body;
+        const user = await User.findById(req.user.id);
+
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        // Check if plant is already in the cart
+        if (!user.cart.includes(plantId)) {
+            user.cart.push(plantId);
+            await user.save();
+            res.json({ message: 'Plant added to cart' });
+        } else {
+            res.json({ message: 'Plant already in cart' });
+        }
+    } catch (err) {
+        console.error('Error adding plant to cart:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Fetch cart items for user
+app.get('/api/cart', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).populate('cart');
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.json(user.cart);
+    } catch (err) {
+        console.error('Error fetching cart:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Remove plant from cart
+app.post('/api/cart/remove', authenticateToken, async (req, res) => {
+    try {
+        const { plantId } = req.body;
+        const user = await User.findById(req.user.id);
+
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        // Remove plant from cart
+        user.cart = user.cart.filter(id => id.toString() !== plantId);
+        await user.save();
+
+        res.json({ message: 'Plant removed from cart' });
+    } catch (err) {
+        console.error('Error removing plant from cart:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+
+// Add plant to cart
+app.post('/api/orders/add', authenticateToken, async (req, res) => {
+    try {
+        const { plantId } = req.body;
+        const user = await User.findById(req.user.id);
+
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        // Check if plant is already in the cart
+        if (!user.orders.includes(plantId)) {
+            user.orders.push(plantId);
+            await user.save();
+            res.json({ message: 'Plant added to cart' });
+        } else {
+            res.json({ message: 'Plant already in cart' });
+        }
+    } catch (err) {
+        console.error('Error adding plant to cart:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Fetch cart items for user
+app.get('/api/orders', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).populate('orders');
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.json(user.orders);
+    } catch (err) {
+        console.error('Error fetching cart:', err);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
