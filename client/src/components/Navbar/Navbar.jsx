@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaUserCircle, FaBookmark, FaSearch, FaGreaterThan, FaTimes, FaCartArrowDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import logo from "../../assets/images/logo.png"
 import axios from 'axios';
 
 const Navbar = ({ onSearch }) => {
@@ -112,6 +113,7 @@ const Navbar = ({ onSearch }) => {
     <>
       <nav className="navbar">
         <div className="web-title">
+        <img src={logo} alt="Herbsphere Logo" className="navbar-logo" />
           <h2>Herbsphere</h2>
         </div>
         <div className="nav-links">
@@ -215,3 +217,7 @@ const Navbar = ({ onSearch }) => {
 };
 
 export default Navbar;
+
+
+
+
