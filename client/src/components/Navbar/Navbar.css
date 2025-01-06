@@ -1,0 +1,183 @@
+/* General Navbar Styles */
+.navbar {
+  display: flex;
+  height: 8vh;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #2f8d46;
+  color: white;
+  position: relative;
+  z-index: 1000;
+  max-width: 1366px;
+  margin: 0 auto; /* Center align the navbar */
+}
+
+.web-title {
+  display: flex;
+  align-items: center;
+}
+
+.web-title h2 {
+  color: white;
+  font-size: 32px;
+  margin-left:-20px;
+  margin-right: 10px;
+}
+
+.navbar-logo {
+  height: 80px; /* Increased size */
+  width: auto;
+}
+
+.nav-links {
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.navbar-links li {
+  padding-right: 30px;
+}
+
+.navbar-links li a {
+  color: white;
+  text-decoration: none;
+  font-family: Bree serif, serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navbar-icon {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* Search Bar Styles */
+.search_bar {
+  position: absolute;
+  top: 1.4vh;
+  right: 265px;
+  width: 13vw;
+  background-color: white;
+  padding: 8px;
+  border-radius: 250px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.search_bar input {
+  width: 90%;
+  padding: 8px;
+  border: none;
+  border-radius: 5%;
+  outline: none;
+  transition: width 0.3s ease;
+}
+
+.search_bar input:focus {
+  border-color: #2f8d46;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Large Screens (1200px and above) */
+@media (min-width: 1200px) {
+  .navbar {
+    padding: 15px 30px;
+  }
+
+  .web-title h2 {
+    font-size: 36px;
+  }
+
+  .navbar-logo {
+    height: 90px; /* Increased size for large screens */
+  }
+
+  .navbar-links li a {
+    font-size: 20px;
+  }
+
+  .navbar-icons {
+    gap: 40px;
+  }
+}
+
+/* Medium Screens (768px to 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .navbar {
+    padding: 10px 25px;
+  }
+
+  .web-title h2 {
+    font-size: 28px;
+  }
+
+  .navbar-logo {
+    height: 70px; /* Adjusted for medium screens */
+  }
+
+  .navbar-links li a {
+    font-size: 18px;
+  }
+
+  .navbar-icons {
+    gap: 30px;
+  }
+}
+
+/* Mobile Screens (767px and below) */
+@media (max-width: 767px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .web-title h2 {
+    font-size: 24px;
+    padding-left: 0;
+  }
+
+  .navbar-logo {
+    height: 60px; /* Adjusted for smaller screens */
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .navbar-links li {
+    padding-right: 0;
+    margin-top: 10px;
+  }
+
+  .navbar-links li a {
+    font-size: 16px;
+  }
+
+  .navbar-icons {
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .search_bar {
+    top: 5vh;
+    right: 5vw;
+    width: 90vw;
+  }
+}
